@@ -1,0 +1,741 @@
+/* ============================================
+   RESPONSIVE FIXES — Rajrupa Mukherjee Website
+   Add AFTER modern.css in all HTML pages
+   ============================================ */
+
+/* ── Base Resets ───────────────────────────── */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+}
+
+/* ── Body overflow guard ───────────────────── */
+body {
+    overflow-x: hidden;
+}
+
+/* ── Navbar ────────────────────────────────── */
+.navbar {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.navbar-brand {
+    font-size: clamp(0.95rem, 2vw, 1.25rem);
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-right: 1rem;
+}
+
+@media (min-width: 992px) {
+    .navbar-nav {
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 0;
+    }
+
+    .navbar-nav .nav-link {
+        padding-left: 0.55rem;
+        padding-right: 0.55rem;
+        font-size: clamp(0.72rem, 1vw, 0.88rem);
+        white-space: nowrap;
+    }
+
+    .navbar-collapse {
+        flex-shrink: 1;
+        min-width: 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .navbar-nav .nav-link {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 1400px) {
+    .navbar-nav .nav-link {
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HOME HERO — FULLY RESPONSIVE
+   
+   - DESKTOP/TABLET: fullscreen viewport height, image covers
+   - MOBILE: fills width, image covers (no letterboxing), title overlays
+   ═══════════════════════════════════════════════════════════════ */
+
+/* DESKTOP — fullscreen */
+.hero-section.home {
+    height: calc(100vh - var(--nav-h, 0px));
+    height: calc(100dvh - var(--nav-h, 0px));
+}
+
+.hero-section.home .hero-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+}
+
+/* TABLET */
+@media (max-width: 991.98px) {
+    .hero-section.home {
+        height: calc(100vh - var(--nav-h, 0px));
+        height: calc(100dvh - var(--nav-h, 0px));
+        min-height: 500px;
+    }
+    .hero-section.home .hero-img {
+        object-position: center top !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE HERO — shows the FULL image scaled to fit width.
+   No cropping from sides. Hero height = image's natural height
+   at the current width, so there's no white space anywhere.
+   Title overlays centered on top of the image.
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767.98px) {
+    .hero-section.home {
+        /* Let the image dictate the hero's height — no forced viewport height,
+           no min/max heights, no cropping. */
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        position: relative !important;
+        display: block !important;
+        overflow: hidden !important;
+        line-height: 0 !important;
+        font-size: 0 !important;
+    }
+
+    .hero-section.home .hero-img {
+        /* Flow naturally: full width, height scales by aspect ratio.
+           Whole image is visible — nothing cropped from sides or top/bottom. */
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        height: auto !important;
+        max-width: 100% !important;
+        max-height: none !important;
+        object-fit: fill !important;   /* image is already the right shape — just draw it */
+        display: block !important;
+    }
+
+    .hero-section.home .hero-overlay {
+        display: block !important;
+        position: absolute !important;
+        inset: 0 !important;
+        background: linear-gradient(
+            rgba(0, 0, 0, 0.30),
+            rgba(74, 4, 4, 0.55)
+        ) !important;
+        z-index: 1 !important;
+    }
+
+    .hero-section.home .hero-content {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 100% !important;
+        height: auto !important;
+        max-width: none !important;
+        padding: 0 1rem !important;
+        margin: 0 !important;
+        background: transparent !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        z-index: 2 !important;
+        line-height: 1.2 !important;
+    }
+
+    .hero-section.home .hero-title {
+        font-size: clamp(1.4rem, 6vw, 2.2rem) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        color: #fff !important;
+        text-align: center !important;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6) !important;
+        line-height: 1.2 !important;
+    }
+}
+
+/* SMALL MOBILE — slightly tighter title */
+@media (max-width: 575.98px) {
+    .hero-section.home .hero-title {
+        font-size: clamp(1.2rem, 5.5vw, 1.8rem) !important;
+    }
+}
+
+/* ── Hero — INNER PAGES (not home) ─────────── */
+/* Keep title LEFT-aligned (like "Honors & Awards"), just contain it
+   safely within the viewport on smaller screens. */
+
+@media (max-width: 991.98px) {
+    .hero-section:not(.home) .hero-content {
+        padding-left: clamp(1rem, 5vw, 3rem) !important;
+        padding-right: 1.5rem !important;
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .hero-section:not(.home) .hero-content {
+        padding-left: 1.5rem !important;
+        padding-right: 1.25rem !important;
+        max-width: 100% !important;
+    }
+    .hero-section:not(.home) .hero-title {
+        font-size: clamp(1.3rem, 5vw, 2rem) !important;
+        word-break: break-word !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .hero-section:not(.home) .hero-content {
+        padding-left: 1.25rem !important;
+        padding-right: 1rem !important;
+        max-width: 100% !important;
+    }
+    .hero-section:not(.home) .hero-title {
+        font-size: clamp(1.1rem, 4.5vw, 1.6rem) !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ABOUT IMAGE — properly sized on every screen
+   Desktop: tall and balanced with the text column.
+   Tablet/mobile: scaled down progressively so it never dominates.
+   ═══════════════════════════════════════════════════════════════ */
+
+.about-img-container {
+    overflow: hidden;
+    border-radius: 12px;
+    width: 100%;
+    margin: 0 auto;
+    aspect-ratio: 960 / 1280;
+}
+
+.about-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+    display: block;
+}
+
+/* DESKTOP (≥992px) — image grows taller to balance text column */
+@media (min-width: 992px) {
+    .about-img-container {
+        max-width: 100%;
+    }
+    .about-img {
+        height: 100%;
+        max-height: none;
+        object-fit: cover;
+        object-position: center bottom;
+    }
+}
+
+/* LARGE DESKTOP (≥1200px) — a touch taller */
+@media (min-width: 1200px) {
+    .about-img {
+        height: auto;
+        max-height: none;
+    }
+}
+
+/* XL DESKTOP (≥1400px) */
+@media (min-width: 1400px) {
+    .about-img {
+        height: auto;
+        max-height: none;
+    }
+}
+
+/* TABLET (≤991px) — centered, moderate size */
+@media (max-width: 991.98px) {
+    .about-img-container,
+    .col-lg-5 .about-img-container,
+    .col-lg-7 .about-img-container {
+        max-width: 380px !important;
+        width: 70% !important;
+        margin: 0 auto 1.5rem auto !important;
+    }
+    .about-img-container .about-img,
+    .col-lg-5 .about-img-container .about-img,
+    .col-lg-7 .about-img-container .about-img {
+        max-height: 440px !important;
+        height: auto !important;
+        width: 100% !important;
+        object-fit: cover !important;
+        object-position: center top !important;
+    }
+
+    .sticky-lg-top {
+        position: static !important;
+        top: auto !important;
+    }
+}
+
+/* MOBILE (≤768px) — visibly smaller */
+@media (max-width: 767.98px) {
+    .about-img-container,
+    .col-lg-5 .about-img-container,
+    .col-lg-7 .about-img-container {
+        max-width: 260px !important;
+        width: 65% !important;
+        border-radius: 10px !important;
+        margin: 0 auto 1.25rem auto !important;
+    }
+    .about-img-container .about-img,
+    .col-lg-5 .about-img-container .about-img,
+    .col-lg-7 .about-img-container .about-img {
+        max-height: 300px !important;
+        height: auto !important;
+        width: 100% !important;
+    }
+}
+
+/* SMALL MOBILE (≤576px) */
+@media (max-width: 575.98px) {
+    .about-img-container,
+    .col-lg-5 .about-img-container,
+    .col-lg-7 .about-img-container {
+        max-width: 220px !important;
+        width: 60% !important;
+    }
+    .about-img-container .about-img,
+    .col-lg-5 .about-img-container .about-img,
+    .col-lg-7 .about-img-container .about-img {
+        max-height: 260px !important;
+        height: auto !important;
+    }
+}
+
+/* EXTRA SMALL — phones under 400px */
+@media (max-width: 400px) {
+    .about-img-container,
+    .col-lg-5 .about-img-container,
+    .col-lg-7 .about-img-container {
+        max-width: 200px !important;
+        width: 60% !important;
+    }
+    .about-img-container .about-img,
+    .col-lg-5 .about-img-container .about-img,
+    .col-lg-7 .about-img-container .about-img {
+        max-height: 240px !important;
+        height: auto !important;
+    }
+}
+
+/* TINY — phones under 340px (e.g. 320px viewport) */
+@media (max-width: 340px) {
+    .about-img-container,
+    .col-lg-5 .about-img-container,
+    .col-lg-7 .about-img-container {
+        max-width: 180px !important;
+        width: 60% !important;
+    }
+    .about-img-container .about-img,
+    .col-lg-5 .about-img-container .about-img,
+    .col-lg-7 .about-img-container .about-img {
+        max-height: 215px !important;
+        height: auto !important;
+    }
+}
+
+/* ── Section Padding ───────────────────────── */
+.section-padding {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+@media (max-width: 767.98px) {
+    .section-padding {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .section-padding {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+}
+
+/* ── Typography Scaling ────────────────────── */
+h1 { font-size: clamp(1.6rem, 4vw, 3rem); }
+h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); }
+h3 { font-size: clamp(1.15rem, 2.5vw, 1.75rem); }
+h4 { font-size: clamp(1.05rem, 2vw, 1.5rem); }
+h5 { font-size: clamp(0.95rem, 1.8vw, 1.25rem); }
+
+p, li {
+    font-size: clamp(0.9rem, 1.5vw, 1rem);
+    line-height: 1.7;
+}
+
+.lead {
+    font-size: clamp(0.95rem, 1.6vw, 1.15rem) !important;
+}
+
+/* ── Timeline ──────────────────────────────── */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    width: 2px;
+    background: var(--accent-color, #c9a84c);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 50px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color, #8B4513);
+    border: 3px solid #fff;
+    flex-shrink: 0;
+}
+
+.timeline-year {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: var(--primary-color, #8B4513);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+@media (max-width: 575.98px) {
+    .timeline-item {
+        padding-left: 40px;
+        margin-bottom: 28px;
+    }
+
+    .timeline::before {
+        left: 14px;
+    }
+
+    .timeline-item::before {
+        left: 5px;
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* ── Glass Panel ───────────────────────────── */
+.glass-panel {
+    overflow: hidden;
+    word-break: break-word;
+}
+
+/* ── Grid Columns ──────────────────────────── */
+@media (max-width: 991.98px) {
+    .col-lg-5,
+    .col-lg-7 {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .ps-lg-5 {
+        padding-left: 15px !important;
+    }
+
+    /* Center text content of about section nicely on tablet/mobile */
+    .row.align-items-center > [class*="col-lg-7"] {
+        text-align: left;
+    }
+}
+
+/* ── Container max-width ───────────────────── */
+.container {
+    max-width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+@media (min-width: 576px)  { .container { max-width: 540px; } }
+@media (min-width: 768px)  { .container { max-width: 720px; } }
+@media (min-width: 992px)  { .container { max-width: 960px; } }
+@media (min-width: 1200px) { .container { max-width: 1140px; } }
+@media (min-width: 1400px) { .container { max-width: 1320px; } }
+
+/* ── Footer ────────────────────────────────── */
+.footer {
+    padding: 2rem 1rem;
+    word-break: break-word;
+}
+
+@media (max-width: 575.98px) {
+    .footer {
+        padding: 1.5rem 0.75rem;
+    }
+    .footer p {
+        font-size: 0.8rem;
+    }
+}
+
+/* ── Mobile Menu ───────────────────────────── */
+@media (max-width: 991.98px) {
+    .navbar-collapse.collapse.show,
+    .navbar-collapse.collapsing {
+        background: rgba(255, 255, 255, 0.97);
+        padding: 1rem;
+        border-radius: 0 0 8px 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.6rem 0.5rem;
+        font-size: 0.95rem;
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .navbar-nav .nav-item:last-child .nav-link {
+        border-bottom: none;
+    }
+}
+
+/* ── Guru page: stacked images on mobile ───── */
+@media (max-width: 991.98px) {
+    .about-img-container + .about-img-container {
+        margin-top: 1.25rem !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .about-img-container + .about-img-container {
+        margin-top: 1rem !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GALLERY PAGE — always 3 columns, tiles shrink on smaller screens
+   The inline CSS in gallery.html forces height: 300px and uses
+   object-fit: fill. We override here so tiles scale down nicely
+   while keeping a 3-column grid on every screen size.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Force every gallery item to take 1/3 of the row at all screen sizes.
+   This overrides Bootstrap's default behaviour that would collapse
+   col-md-4 into a full-width column below 768px. */
+.gallery-item {
+    flex: 0 0 auto;
+    width: 33.3333% !important;
+    max-width: 33.3333% !important;
+}
+
+.gallery-img-container img {
+    object-fit: cover !important;
+}
+
+/* TABLET (≤991px) */
+@media (max-width: 991.98px) {
+    .gallery-img-container {
+        height: 220px !important;
+    }
+}
+
+/* SMALL TABLET / LARGE MOBILE (≤768px) */
+@media (max-width: 767.98px) {
+    .gallery-img-container {
+        height: 170px !important;
+        border-radius: 8px !important;
+    }
+    #gallery-grid.row.g-4 {
+        --bs-gutter-x: 0.75rem;
+        --bs-gutter-y: 0.75rem;
+    }
+}
+
+/* MOBILE (≤576px) */
+@media (max-width: 575.98px) {
+    .gallery-img-container {
+        height: 120px !important;
+        border-radius: 6px !important;
+    }
+    #gallery-grid.row.g-4 {
+        --bs-gutter-x: 0.5rem;
+        --bs-gutter-y: 0.5rem;
+    }
+}
+
+/* EXTRA SMALL — phones under 400px */
+@media (max-width: 400px) {
+    .gallery-img-container {
+        height: 95px !important;
+        border-radius: 5px !important;
+    }
+    #gallery-grid.row.g-4 {
+        --bs-gutter-x: 0.4rem;
+        --bs-gutter-y: 0.4rem;
+    }
+}
+
+/* TINY — phones under 340px */
+@media (max-width: 340px) {
+    .gallery-img-container {
+        height: 80px !important;
+    }
+}
+
+/* ── Contact / Cards ───────────────────────── */
+@media (max-width: 575.98px) {
+    .contact-card {
+        padding: 1.5rem 1rem;
+    }
+    .contact-icon {
+        font-size: 1.6rem;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CONTACT PAGE — prevent overflow, wrap long email cleanly
+   ═══════════════════════════════════════════════════════════════ */
+
+.contact-card,
+.contact-card * {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.contact-card .contact-email {
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    font-size: clamp(0.85rem, 2.2vw, 1rem);
+}
+
+.contact-card .d-flex {
+    flex-wrap: nowrap;
+    min-width: 0;
+}
+
+.contact-card .d-flex > div:last-child {
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+@media (max-width: 575.98px) {
+    .contact-card {
+        padding: 1.25rem 1rem !important;
+    }
+    .contact-card h5 {
+        font-size: 1rem;
+    }
+    .contact-card p {
+        font-size: 0.9rem;
+    }
+    .contact-icon {
+        font-size: 1.4rem !important;
+    }
+    .contact-card .fa-2x {
+        font-size: 1.5em !important;
+    }
+    .contact-card .me-3 {
+        margin-right: 0.75rem !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .contact-card {
+        padding: 1rem 0.75rem !important;
+    }
+    .contact-card h5 {
+        font-size: 0.95rem;
+    }
+    .contact-card p {
+        font-size: 0.85rem;
+    }
+    .contact-card .fa-2x {
+        font-size: 1.3em !important;
+    }
+    .contact-card .me-3 {
+        margin-right: 0.6rem !important;
+    }
+}
+
+/* Map iframe — keep it nicely sized on mobile */
+@media (max-width: 767.98px) {
+    .contact-map-row .ratio {
+        max-height: 320px;
+    }
+}
+
+/* ── Buttons on small screens ──────────────── */
+@media (max-width: 575.98px) {
+    .btn-custom {
+        padding: 9px 22px;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+}
+
+/* Override to show full about image */
+.about-img-container .about-img,
+.col-lg-5 .about-img-container .about-img,
+.col-lg-7 .about-img-container .about-img {
+    height: 100% !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: center bottom !important;
+}
+
+/* Smaller guru image container */
+.smaller-guru-img {
+    width: 70% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    min-height: unset !important;
+    max-height: unset !important;
+    flex-grow: unset !important;
+}
+
+.smaller-guru-img.about-img-container {
+    aspect-ratio: 1 / 1 !important;
+}
+
+.smaller-guru-img .about-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+}
