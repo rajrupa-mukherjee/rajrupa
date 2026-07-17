@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Rajrupa Mukherjee</title>
+
+    <meta name="description"
+        content="Contact Rajrupa Mukherjee for Bharatanatyam performances, workshops, and classes in Kolkata.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://maps.app.goo.gl/GMzFNamUrR258WAU9"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/modern.css">
+    <!-- Responsive Overrides (loaded AFTER modern.css) -->
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top glass-header" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Rajrupa Mukherjee</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="performances.html">Performances</a></li>
+                    <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
+                    <li class="nav-item"><a class="nav-link" href="training.html">Training</a></li>
+                    <li class="nav-item"><a class="nav-link" href="guru.html">Guru</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="press.html">Press & Media</a></li>
+                    <li class="nav-item"><a class="nav-link" href="review.html"> Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section" id="heroSection">
+        <img src="images/102.png" alt="Contact" class="hero-img">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title display-4">Contact</h1>
+        </div>
+    </header>
+
+    <!-- Contact Content -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row g-5 contact-map-row">
+                <!-- Contact Info -->
+                <div class="col-lg-6">
+                   
+
+                    <div class="contact-card mb-4">
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="contact-icon me-3">
+                                <i class="fas fa-map-marker-alt fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5>Address</h5>
+                                <p class="text-muted mb-0">58, Ashokegarh, (Dunlop Bridge), Kolkata 700 108, India</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="contact-icon me-3">
+                                <i class="fas fa-phone-alt fa-2x fa-flip-horizontal"></i>
+                            </div>
+                            <div>
+                                <h5>Phone</h5>
+                                <p class="text-muted mb-0">+91 9123931378</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start">
+                            <div class="contact-icon me-3">
+                                <i class="fas fa-envelope fa-2x"></i>
+                            </div>
+                            <div>
+                                <h5>Email</h5>
+                                <p class="text-muted mb-0 contact-email">rajrupa.m79@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Column -->
+               
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="mb-1">&copy; 2026 Rajrupa Mukherjee. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const navbar = document.getElementById('mainNavbar');
+        const hero   = document.getElementById('heroSection');
+
+        function adjustHero() {
+            hero.style.marginTop = navbar.offsetHeight + 'px';
+        }
+
+        window.addEventListener('load', adjustHero);
+        adjustHero();
+        window.addEventListener('resize', adjustHero);
+        document.getElementById('navbarContent').addEventListener('shown.bs.collapse',  adjustHero);
+        document.getElementById('navbarContent').addEventListener('hidden.bs.collapse', adjustHero);
+
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-sm');
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                navbar.classList.remove('shadow-sm');
+                navbar.style.background = 'rgba(255, 255, 255, 0.85)';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Press & Media | Rajrupa Mukherjee</title>
+
+    <meta name="description"
+        content="Press coverage and media mentions of Rajrupa Mukherjee - Renowned Bharatanatyam Dancer.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/modern.css">
+    <!-- Responsive Overrides (loaded AFTER modern.css) -->
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        .press-grid {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+            padding: 20px 0;
+            justify-content: center;
+        }
+
+        /* DEFAULT ITEMS = 25% */
+        .press-item-wrapper {
+            padding: 10px;
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+
+        /* MAKE 2ND ITEM DOUBLE WIDTH = 50% */
+        .press-item-wrapper:nth-child(2) {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        .press-item {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-align: center;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+
+            height: 400px;
+
+            /* COLUMN layout: image on top, caption below */
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+        }
+
+        .press-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(74, 4, 4, 0.1);
+            border-color: var(--accent-color);
+        }
+
+        .press-img-link {
+            flex: 1 1 auto;
+            min-height: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9f9f9;
+            overflow: hidden;
+        }
+
+        .press-img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .press-item:hover .press-img {
+            transform: scale(1.02);
+        }
+
+        /* ═══════════════════════════════════════════════
+           PRESS TITLE — EXACTLY 2 lines tall on every card.
+           - line-clamp limits visible text to 2 lines
+           - matched min-height + max-height locks the
+             rendered box height regardless of text length
+           - flex column centers the clamped text vertically
+           ═══════════════════════════════════════════════ */
+        .press-title {
+            flex: 0 0 auto;
+            box-sizing: border-box;
+            width: 100%;
+            margin: 0;
+            padding: 10px 12px;
+            text-align: center;
+
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            text-transform: uppercase;
+
+            color: #ffffff;
+            background: rgba(74, 4, 4, 0.92);
+
+            /* Clamp to 2 lines */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            /* Lock height: 2 lines * 1.4 line-height * 0.78rem + 20px padding
+               ≈ 2 * 17.5px + 20px ≈ 55px. We force exact match: */
+            height: 60px;
+            min-height: 60px;
+            max-height: 60px;
+
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        @media (max-width: 1100px) {
+            .press-item-wrapper {
+                flex: 0 0 33.333%;
+                max-width: 33.333%;
+            }
+            .press-item-wrapper:nth-child(2) {
+                flex: 0 0 66.666%;
+                max-width: 66.666%;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .press-item-wrapper {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+            .press-item-wrapper:nth-child(2) {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        /* MOBILE — single column, 2nd item also full width */
+        @media (max-width: 600px) {
+            .press-item-wrapper,
+            .press-item-wrapper:nth-child(2) {
+                flex: 0 0 100% !important;
+                max-width: 320px !important;
+                margin: 0 auto !important;
+            }
+
+            .press-item {
+                height: 320px;
+            }
+            .press-title {
+                font-size: 0.72rem;
+                padding: 8px 10px;
+                letter-spacing: 0.3px;
+                height: 54px;
+                min-height: 54px;
+                max-height: 54px;
+            }
+        }
+
+        /* SMALL MOBILE */
+        @media (max-width: 480px) {
+            .press-item-wrapper,
+            .press-item-wrapper:nth-child(2) {
+                max-width: 280px !important;
+            }
+            .press-item {
+                height: 290px;
+            }
+            .press-title {
+                font-size: 0.68rem;
+                padding: 7px 8px;
+                height: 50px;
+                min-height: 50px;
+                max-height: 50px;
+            }
+        }
+
+        /* EXTRA SMALL */
+        @media (max-width: 380px) {
+            .press-item-wrapper,
+            .press-item-wrapper:nth-child(2) {
+                max-width: 240px !important;
+                padding: 6px;
+            }
+            .press-item {
+                height: 260px;
+            }
+            .press-title {
+                font-size: 0.64rem;
+                padding: 6px 6px;
+                letter-spacing: 0.2px;
+                height: 46px;
+                min-height: 46px;
+                max-height: 46px;
+            }
+        }
+
+        /* TINY */
+        @media (max-width: 340px) {
+            .press-item-wrapper,
+            .press-item-wrapper:nth-child(2) {
+                max-width: 210px !important;
+            }
+            .press-item {
+                height: 240px;
+            }
+            .press-title {
+                font-size: 0.6rem;
+                padding: 5px 5px;
+                height: 42px;
+                min-height: 42px;
+                max-height: 42px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top glass-header" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Rajrupa Mukherjee</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="performances.html">Performances</a></li>
+                    <li class="nav-item"><a class="nav-link" href="awards.html">Awards</a></li>
+                    <li class="nav-item"><a class="nav-link" href="training.html">Training</a></li>
+                    <li class="nav-item"><a class="nav-link" href="guru.html">Guru</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="press.html">Press & Media</a></li>
+                    <li class="nav-item"><a class="nav-link" href="review.html">Testimonials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section" id="heroSection">
+        <img src="images/46.png" alt="Press & Media" class="hero-img">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title display-4">Press & Media</h1>
+        </div>
+    </header>
+
+    <!-- Press Gallery Section -->
+    <section class="section-padding">
+        <div class="container">
+
+            <div class="press-grid">
+                <!-- Clipping 1 -->
+                <div class="press-item-wrapper">
+                    <div class="press-item">
+                        <a href="images/press/1.png" target="_blank" class="press-img-link">
+                            <img src="images/press/1.png" alt="Press Clipping" class="press-img">
+                        </a>
+                        <p class="press-title">NORTHERN INDIA PATRIKA, ALLAHABAD, AUGUST 1, 2004</p>
+                    </div>
+                </div>
+
+                <!-- Clipping 2 -->
+                <div class="press-item-wrapper">
+                    <div class="press-item">
+                        <a href="images/press/8.png" target="_blank" class="press-img-link">
+                            <img src="images/press/8.png" alt="Press Clipping" class="press-img">
+                        </a>
+                        <p class="press-title">DAINIK BHASKAR, GURGAON, OCTOBER 26, 2009</p>
+                    </div>
+                </div>
+
+                <!-- Clipping 3 -->
+                <div class="press-item-wrapper">
+                    <div class="press-item">
+                        <a href="images/press/4(1).png" target="_blank" class="press-img-link">
+                            <img src="images/press/4.png" alt="Press Clipping" class="press-img">
+                        </a>
+                        <p class="press-title">ORISSA KHABAR,BHUBANESHWAR, JANUARY 14,2005</p>
+                    </div>
+                </div>
+
+                <!-- Clipping 4 -->
+                <div class="press-item-wrapper">
+                    <div class="press-item">
+                        <a href="images/press/5.png" target="_blank" class="press-img-link">
+                            <img src="images/press/5.png" alt="Press Clipping" class="press-img">
+                        </a>
+                        <p class="press-title">THE STATESMAN, KOLKATA, APRIL 30, 2004</p>
+                    </div>
+                </div>
+
+                <!-- Clipping 5 -->
+                <div class="press-item-wrapper">
+                    <div class="press-item">
+                        <a href="images/press/6.png" target="_blank" class="press-img-link">
+                            <img src="images/press/6.png" alt="Press Clipping" class="press-img">
+                        </a>
+                        <p class="press-title">HINDUSTAN TIMES, GURGAON, APRIL 30, 2010</p>
+                    </div>
+                </div>
+
+                <!-- Clipping 6 -->
+                <div class="press-item-wrapper">
+                    <div class="press-item">
+                        <a href="images/press/7.png" target="_blank" class="press-img-link">
+                            <img src="images/press/7.png" alt="Press Clipping" class="press-img">
+                        </a>
+                        <p class="press-title">HINDUSTAN TIMES, KOLKATA, MAY 27, 2004</p>
+                    </div>
+                </div>
+
+                <!-- Clipping 7 -->
+                <div class="press-item-wrapper">
+                    <div class="press-item">
+                        <a href="images/press/3.png" target="_blank" class="press-img-link">
+                            <img src="images/press/news.png" alt="Press Clipping" class="press-img">
+                        </a>
+                        <p class="press-title">FEATURED PRESS COVERAGE</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="mb-1">&copy; 2026 Rajrupa Mukherjee. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const navbar = document.getElementById('mainNavbar');
+        const hero   = document.getElementById('heroSection');
+
+        function adjustHero() {
+            hero.style.marginTop = navbar.offsetHeight + 'px';
+        }
+
+        window.addEventListener('load', adjustHero);
+        adjustHero();
+        window.addEventListener('resize', adjustHero);
+        document.getElementById('navbarContent').addEventListener('shown.bs.collapse',  adjustHero);
+        document.getElementById('navbarContent').addEventListener('hidden.bs.collapse', adjustHero);
+
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-sm');
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            } else {
+                navbar.classList.remove('shadow-sm');
+                navbar.style.background = 'rgba(255, 255, 255, 0.85)';
+            }
+        });
+    </script>
+</body>
+
+</html>
